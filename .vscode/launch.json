@@ -1,0 +1,15 @@
+{
+    // Usare IntelliSense per informazioni sui possibili attributi.
+    // Al passaggio del mouse vengono visualizzate le descrizioni degli attributi esistenti.
+    // Per altre informazioni, visitare: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Python: main.py",
+            "type": "python",
+            "request": "launch",
+            "program": "D:/Universita/AML/Labs\\AML_LAB01\\main.py",
+            "console": "integratedTerminal"
+        }
+    ]
+}

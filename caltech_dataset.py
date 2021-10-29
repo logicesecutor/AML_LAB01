@@ -8,6 +8,7 @@ import sys
 
 
 def pil_loader(path):
+    path = path[:-1]
     # open path as file to avoid ResourceWarning (https://github.com/python-pillow/Pillow/issues/835)
     with open(path, 'rb') as f:
         img = Image.open(f)
@@ -29,6 +30,21 @@ class Caltech(VisionDataset):
           through the index
         - Labels should start from 0, so for Caltech you will have lables 0...100 (excluding the background class) 
         '''
+        self.data = dict()
+
+        with open(split + ".txt", "r") as fin:
+            for i, line in enumerate(fin.readlines()):
+                label = line.split("/",1)
+                image = pil_loader(root + "/" + line)
+
+                self.data[i] = (label, image)
+
+
+        print()
+
+
+
+        
 
     def __getitem__(self, index):
         '''
