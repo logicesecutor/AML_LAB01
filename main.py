@@ -56,11 +56,12 @@ eval_transform = transforms.Compose([transforms.Resize(256),
 
 # %%
 DATA_DIR = '101_ObjectCategories'
+root = "Caltech101"
 from caltech_dataset import Caltech
 
 # Prepare Pytorch train/test Datasets
-train_dataset = Caltech(DATA_DIR, split='train',  transform=train_transform)
-test_dataset = Caltech(DATA_DIR, split='test', transform=eval_transform)
+train_dataset = Caltech(root, DATA_DIR, split='train',  transform=train_transform)
+test_dataset = Caltech(root, DATA_DIR, split='test', transform=eval_transform)
 
 # train_indexes = # split the indices for your train split
 # val_indexes = # split the indices for your val split

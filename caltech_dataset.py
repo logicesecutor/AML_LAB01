@@ -16,8 +16,8 @@ def pil_loader(path):
 
 
 class Caltech(VisionDataset):
-    def __init__(self, root, split='train', transform=None, target_transform=None):
-        super(Caltech, self).__init__(root, transform=transform, target_transform=target_transform)
+    def __init__(self, root, dataDir , split='train', transform=None, target_transform=None):
+        super(Caltech, self).__init__(dataDir, transform=transform, target_transform=target_transform)
 
         self.split = split # This defines the split you are going to use
                            # (split files are called 'train.txt' and 'test.txt')
@@ -31,13 +31,18 @@ class Caltech(VisionDataset):
         - Labels should start from 0, so for Caltech you will have lables 0...100 (excluding the background class) 
         '''
         self.data = dict()
+        self.labels = dict()
 
+        for label, dirs in enumerate(os.walk(root)[1]):
+            self.labels[dirs] = label
+            
         with open(split + ".txt", "r") as fin:
             for i, line in enumerate(fin.readlines()):
-                label = line.split("/",1)
-                image = pil_loader(root + "/" + line)
+                texted_label = line.split("/",1)[0]
+                if texted_label == "BACKGROUND_Google": continue
 
-                self.data[i] = (label, image)
+                image = pil_loader(dataDir + "/" + line)
+                self.data[i] = (self.labels[texted_label], image)
 
 
         print()
@@ -56,7 +61,7 @@ class Caltech(VisionDataset):
             tuple: (sample, target) where target is class_index of the target class.
         '''
 
-        image, label = ... # Provide a way to access image and label via index
+        image, label = self.data[index] # Provide a way to access image and label via index
                            # Image should be a PIL Image
                            # label can be int
 
